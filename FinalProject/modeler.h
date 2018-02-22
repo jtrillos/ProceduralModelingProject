@@ -4,48 +4,51 @@
 #include <iostream>
 #include <vector>
 #include "common.h"
-#include <functional>
-#include <stack>
 
 using namespace std;
 
 class modeler {
+private:
+	// Variables
 	string name;
-	vector3d scopePosition;
+	vector3d symbolPosition;
 	vector3d size;
-	TypeObject type; 
-	friend ostream &operator<<(ostream &strm, const modeler &modeler);
-	vector3d rotate_around_axis(vector3d &position, float degrees, int axe);
+	string texture;
+	TypeObject type;
 
-public:
-	modeler() = default;
-	modeler(string name, vector3d scopePosition, vector3d size, TypeObject type); // Constructor
+public:	
+	// Methods
+	modeler(); // Constructor
+	modeler(string name, vector3d symbolPosition, vector3d size, string texture, TypeObject type);
 
-	modeler &translate(vector3d translation); // Translation vector
-	modeler &rotate(vector3d angles); // Rotation 
-
-	modeler &setSize(vector3d newSize); // Add Size
+	modeler& setSize(vector3d newSize); // Add Size
 	vector3d& getSize();
 	void setType(TypeObject type); // Add type of object
 	TypeObject getType();
-	vector3d& getScopePosition(); // Get Position
-	string getName(); // Get Name (predecesor)
-	void setName(string name);
-
-	vector<modeler> split(int axis, vector<float> ratios, vector<string> newmodelerNames); // Splits the current scope along one specific axis
-
-	vector<modeler> repeat(int axis, int times, string newmodelersName); // Allow for larger scale changes in the split rules, we often want to tile a specified element.
+	vector3d& getSymbolPosition(); // Get Position
+	void setName(string name); // Get Name (head)
+	string getName();
+	void setTexture(string texture); // Get Name (head)
+	string getTexture(); 
+	modeler& getModel(); // Get Model
 
 	vector<modeler> componentSplit(string type, vector<string> newmodelerNames); // Splits the modeler into modelers of lesser dimensions
+	vector<modeler> split(string head, int axis, vector<float> ratios, vector<string> newmodelerNames); // Splits the current scope along one specific axis
+	vector<modeler> repeat(string head, int axis, int times, string newmodelersName); // Allow for larger scale changes in the split rules, we often want to tile a specified element.
+	modeler &translate(vector3d translation); // Translation vector
+	modeler &rotate(vector3d angles); // Rotation 
+	vector3d rotate_axis(vector3d &position, float degrees, int axe);
+	
 };
 
-ostream &operator<<(ostream &strm, const modeler &modeler);
-
-
 class Node {
+private:
+	// Variables
 	modeler model;
 	vector<Node *> children;
+
 public:
+	// Methods
 	Node(modeler& model, vector<Node *> children) {
 		this->model = model;
 		this->children = children;
@@ -54,10 +57,10 @@ public:
 		this->model = other.model;
 		this->children = other.children;
 	}
-	modeler & getModel() {
+	modeler& getModel() {
 		return this->model;
 	}
-	vector<Node *> getChildren() {
+	vector<Node*> getChildren() {
 		return this->children;
 	}
 	void addChild(Node * child) {
@@ -66,14 +69,18 @@ public:
 };
 
 class Tree {
-	Node *root;
+private:
+	// Variables
+	Node * root;
 	vector<modeler> leafNodes;
+
 public:
-	Tree();
-	vector<Node *> applyRules(Node * current, vector<function<vector<modeler>(modeler)>> rules);
-	void buildTree(vector<function<vector<modeler>(modeler)>> rules, modeler& axiom);
+	// Methods
+	Tree(); // Constructor
+	vector<Node*> applyRules(Node* current, vector<modeler> rules);
+	void buildTree(vector<modeler> rules, modeler& axiom);
 	vector<modeler> getLeafNodes();
-	Node * getRoot();
+	Node* getRoot();
 };
 
 #endif

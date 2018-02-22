@@ -11,23 +11,25 @@ using namespace std;
 enum TypeObject { INACTIVE, CUBE, CYLINDER, SCOPE, PLAIN, SOFA, TABLE, CABINET, CHAIR, TOY };
 
 class vector3d {
+private:
+	// Variables
 	float x;
 	float y;
 	float z;
-	friend ostream& operator<<(ostream &strm, const vector3d &vector);
+
 public:
-	vector3d() = default;
+	// Methods
+	vector3d();
 	vector3d(float x, float y, float z); // Constructor
-	vector3d copy();
+	vector3d copyVector();
 	float getElement(int axis); // Get elements of a specific axis (X=0, Y=1, Z=2)
 	void setElement(int axis, float value);
 	void addElement(vector3d& that);
 	float getX();
 	float getY();
 	float getZ();
-	void set(vector3d& that);
+	void setVector(vector3d& that);
 };
 
-ostream& operator<<(ostream &strm, const vector3d &vector); // Print the vector
 
 #endif

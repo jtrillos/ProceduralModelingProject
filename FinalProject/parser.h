@@ -3,30 +3,50 @@
 
 #include <iostream>
 #include <vector>
-#include <functional>
 #include <random>
 #include <math.h>  
 #include "modeler.h"
 
 using namespace std;
 
-class parser {
+
+class rule {
 public:
-	string fileName; // File with rules
+	// Variables
+	std::string head;
+	std::string rules;
+	double probability;
+	
+	// Methods
+	rule();
+	rule(std::string head, std::string rules);
+	rule(std::string head, std::string rules, double probability);
+	~rule();
+};
 
-	parser(string rulesFile); // Constructor
+class parser {
+private:
+	// Variables
+	std::string fileName; // File with rules
 
-	vector<string> readLines(string rulesFile); // Read lines from file
-
-	vector<string> splitString(string str, char delimeter, char delimeter2);
-	bool startsWith(string str, string prefix);
-
+	// Methods
+	vector<std::string> readLines(std::string rulesFile); // Read lines from file
+	vector<rule> parseProb(vector<std::string> str);
+	double createRandom();
+	rule searchClosest(vector<rule> vec, double key);
+	vector<rule> eraseLosers(vector<rule> vec, vector<rule> temp);
 	TypeObject stringToType(string str);
-	function<vector<modeler>(modeler)> stringToRule(string string);
-
-	vector<function<float()>> parseArguments(string token);
+	modeler ruleToModel(rule r);
+	vector<std::string> splitString(std::string str, char delimeter, char delimeter2);
+	bool startsWith(std::string str, std::string prefix);
+	vector<float> parseArguments(string token);
 	vector<string> parseParameters(string token);
-	vector<function<vector<modeler>(modeler)>> parseRules();
+
+public:
+	// Methods
+	parser(std::string rulesFile); // Constructor
+	vector<modeler> parseRules();
+
 };
 
 #endif
