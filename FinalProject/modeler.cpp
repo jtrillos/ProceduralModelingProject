@@ -11,9 +11,23 @@ using namespace std;
 const float PI = 3.14159265358979323846;
 
 modeler::modeler() {
-	this->symbolPosition = vector3d(0, 0, 0);
-	this->type = SCOPE;
+}
 
+modeler::modeler(string name) {
+	this->name = name;
+	this->symbolPosition = vector3d(0, 0, 0);
+	this->size = vector3d(0, 0, 0);
+	this->texture = "";
+	this->type = SCOPE;
+}
+
+modeler::modeler(string name, vector3d position, vector3d size, string texture, TypeObject type, vector<modeler> children) {
+	this->name = name;
+	this->symbolPosition = position;
+	this->size = size;
+	this->texture = texture;
+	this->type = type;
+	this->children = children;
 }
 
 modeler::modeler(string name, vector3d position, vector3d size, string texture, TypeObject type) {
@@ -70,6 +84,14 @@ modeler& modeler::getModel() {
 	return *this;
 }
 
+void modeler::setChildren(vector<modeler> children) {
+	this->children = children;
+}
+
+vector<modeler> modeler::getChildren() {
+	return this->children;
+}
+
 vector<modeler> modeler::componentSplit(string type, vector<string> newModelNames) {
 	vector<modeler> newModel;
 	auto position = this->getSymbolPosition();
@@ -115,7 +137,7 @@ vector<modeler> modeler::componentSplit(string type, vector<string> newModelName
 	return newModel;
 }
 
-vector<modeler> modeler::split(string head, int axis, vector<float> ratios, vector<string> newModelNames) {
+vector<modeler> modeler::split(int axis, vector<float> ratios, vector<string> newModelNames) {
 	vector<modeler> successors;
 	if (ratios.size() != newModelNames.size()) {
 		runtime_error("ERROR: Split. Ratios and Names should have the same size");
@@ -131,7 +153,7 @@ vector<modeler> modeler::split(string head, int axis, vector<float> ratios, vect
 		if (i != 0)
 			positionChange += ratios[i - 1];
 		newPosition.setElement(axis, positionChange);
-		modeler newModel = modeler(head, newPosition, newSize, newModelNames[i], this->type);
+		modeler newModel = modeler(newModelNames[i], newPosition, newSize, "", this->type);
 		successors.push_back(newModel);
 	}
 	return successors;

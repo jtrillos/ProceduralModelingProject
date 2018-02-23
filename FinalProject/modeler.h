@@ -17,8 +17,13 @@ private:
 	TypeObject type;
 
 public:	
+	// Variables
+	vector<modeler> children;
+
 	// Methods
 	modeler(); // Constructor
+	modeler(string name);
+	modeler(string name, vector3d symbolPosition, vector3d size, string texture, TypeObject type, vector<modeler> children);
 	modeler(string name, vector3d symbolPosition, vector3d size, string texture, TypeObject type);
 
 	modeler& setSize(vector3d newSize); // Add Size
@@ -26,14 +31,16 @@ public:
 	void setType(TypeObject type); // Add type of object
 	TypeObject getType();
 	vector3d& getSymbolPosition(); // Get Position
-	void setName(string name); // Get Name (head)
+	void setName(string name); // Add Name (head)
 	string getName();
-	void setTexture(string texture); // Get Name (head)
+	void setTexture(string texture); // Add Name (head)
 	string getTexture(); 
 	modeler& getModel(); // Get Model
+	void setChildren(vector<modeler> children); // Add children
+	vector<modeler> getChildren();
 
 	vector<modeler> componentSplit(string type, vector<string> newmodelerNames); // Splits the modeler into modelers of lesser dimensions
-	vector<modeler> split(string head, int axis, vector<float> ratios, vector<string> newmodelerNames); // Splits the current scope along one specific axis
+	vector<modeler> split(int axis, vector<float> ratios, vector<string> newmodelerNames); // Splits the current scope along one specific axis
 	vector<modeler> repeat(string head, int axis, int times, string newmodelersName); // Allow for larger scale changes in the split rules, we often want to tile a specified element.
 	modeler &translate(vector3d translation); // Translation vector
 	modeler &rotate(vector3d angles); // Rotation 

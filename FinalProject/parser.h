@@ -30,13 +30,14 @@ private:
 	std::string fileName; // File with rules
 
 	// Methods
+	void initModel();
 	vector<std::string> readLines(std::string rulesFile); // Read lines from file
 	vector<rule> parseProb(vector<std::string> str);
 	double createRandom();
 	rule searchClosest(vector<rule> vec, double key);
 	vector<rule> eraseLosers(vector<rule> vec, vector<rule> temp);
 	TypeObject stringToType(string str);
-	modeler ruleToModel(rule r);
+	void ruleToModel(rule r);
 	vector<std::string> splitString(std::string str, char delimeter, char delimeter2);
 	bool startsWith(std::string str, std::string prefix);
 	vector<float> parseArguments(string token);

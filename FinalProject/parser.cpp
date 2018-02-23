@@ -3,9 +3,11 @@
 #include <string>
 #include <fstream>
 #include <ctime>
+#include <queue>
 #include "parser.h"
 
 using namespace std;
+vector<modeler> list;
 
 // Constructor
 rule::rule() {
@@ -26,6 +28,11 @@ rule::rule(std::string head, std::string rules, double probability) {
 
 rule::~rule() {
 
+}
+
+void parser::initModel() {
+	modeler model = modeler("main");
+	list.push_back(model);
 }
 
 // Import the file (that contains the rules) in the attribute fileName
@@ -51,7 +58,7 @@ vector<modeler> parser::parseRules() {
 	vector<rule> rules = parseProb(lines);
 	vector<modeler> model;
 	for (int i = 0; i < rules.size(); i++) {
-		model.push_back(ruleToModel(rules[i]));
+		ruleToModel(rules[i]);
 	}
 	return model;
 }
@@ -159,58 +166,69 @@ TypeObject parser::stringToType(string str) {
 }
 
 // Read a string line and transformed it into a rule
-modeler parser::ruleToModel(rule r) {
+void parser::ruleToModel(rule r) {
 	vector<string> keys = splitString(r.rules, ' ', ' '); 
 	vector<modeler> *result;
-	modeler currentmodel = modeler();
-	currentmodel.setName(r.head);
-	for (int i = 0; i < keys.size(); i++) { 
-		if (startsWith(keys[i], "T")) { // Translation
-			vector<float> args = parseArguments(keys[i]);
-			currentmodel.translate(vector3d(args[0], args[1], args[2]));
-		}
-		else if (startsWith(keys[i], "Subdiv")) { // Divide scope in smaller scopes (children)
-			vector<float> args = parseArguments(keys[i]);
-			vector<string> parameters = parseParameters(keys[i]);
-			int axis = round(args[0]);
-			vector<float> ratios;
-			for (int i = 1; i < args.size(); ratios.push_back(args[i++])); // Parsing ratios
-			vector<modeler> newmodelers = currentmodel.split(r.head, axis, ratios, parameters);
-			copy(newmodelers.begin(), newmodelers.end(), back_inserter((*result))); // Save new modeler to result
-		}
-		else if (startsWith(keys[i], "S")) { // Set new size
-			vector<float> args = parseArguments(keys[i]);
-			currentmodel.setSize(vector3d(args[0], args[1], args[2]));
-		}
+	initModel();
+	while (list.size()) {
+		modeler currentmodel = list[0];
+		list.erase(list.begin());
 
-		else if (startsWith(keys[i], "I")) { // Instance of a figure
-			TypeObject type = stringToType(splitString(keys[i], '(', ')')[1]);
-			string texture = parseParameters(keys[i])[0]; // Texture
-			currentmodel.setTexture(texture);
-			currentmodel.setType(type);
-			(*result).push_back(currentmodel);
+		string modelerName = currentmodel.getName();
+		if (modelerName == r.head) {
+			for (int i = 0; i < keys.size(); i++) {
+				if (startsWith(keys[i], "T")) { // Translation
+					vector<float> args = parseArguments(keys[i]);
+					currentmodel.translate(vector3d(args[0], args[1], args[2]));
+				}
+				else if (startsWith(keys[i], "Subdiv")) { // Divide scope in smaller scopes (children)
+					vector<float> args = parseArguments(keys[i]);
+					vector<string> parameters = parseParameters(keys[i]);
+					int axis = round(args[0]);
+					vector<float> ratios;
+					for (int i = 1; i < args.size(); ratios.push_back(args[i++])); // Parsing ratios
+					vector<modeler> newmodelers = currentmodel.split(axis, ratios, parameters);
+					copy(newmodelers.begin(), newmodelers.end(), back_inserter((*result))); // Save new modeler to result
+				}
+				else if (startsWith(keys[i], "S")) { // Set new size
+					vector<float> args = parseArguments(keys[i]);
+					currentmodel.setSize(vector3d(args[0], args[1], args[2]));
+				}
+				else if (startsWith(keys[i], "S3d")) { // Set new size for an specific axis
+					vector<float> args = parseArguments(keys[i]);
+					int axis = round(args[0]);
+					vector3d size = currentmodel.getSize();
+					size.setElement(axis, args[1]);
+					currentmodel.setSize(size);
+				}
+				//else if (startsWith(keys[i], "I")) { // Instance of a figure
+				//	TypeObject type = stringToType(splitString(keys[i], '(', ')')[1]);
+				//	string texture = parseParameters(keys[i])[0]; // Texture
+				//	currentmodel.setTexture(texture);
+				//	currentmodel.setType(type);
+				//	(*result).push_back(currentmodel);
+				//}
+				//else if (startsWith(keys[i], "Repeat")) { // Splitting scope into the same objects
+				//	vector<float> args = parseArguments(keys[i]);
+				//	string newmodelerName = parseParameters(keys[i])[0];
+				//	int axis = round(args[0]);
+				//	vector<modeler> newmodelers = currentmodel.repeat(r.head, axis, round(args[1]), newmodelerName);
+				//	copy(newmodelers.begin(), newmodelers.end(), back_inserter((*result))); // Save new modeler to result
+				//}
+				//else if (startsWith(keys[i], "R")) { // Rotating around axis
+				//	vector<float> args = parseArguments(keys[i]);
+				//	currentmodel.rotate(vector3d(args[0], args[1], args[2]));
+				//}
+				//else if (startsWith(keys[i], "Comp")) { // Split scope into plains
+				//	string type = splitString(keys[i], '(', ')')[1];
+				//	vector<string> parameters = parseParameters(keys[i]);
+				//	vector<modeler> newmodelers = currentmodel.componentSplit(type, parameters);
+				//	copy(newmodelers.begin(), newmodelers.end(), back_inserter((result))); // Save new modeler to result
+				//}
+				else runtime_error("ERROR in parser : that command does not exist");
+			}
 		}
-		else if (startsWith(keys[i], "Repeat")) { // Splitting scope into the same objects
-			vector<float> args = parseArguments(keys[i]);
-			string newmodelerName = parseParameters(keys[i])[0];
-			int axis = round(args[0]);
-			vector<modeler> newmodelers = currentmodel.repeat(r.head, axis, round(args[1]), newmodelerName);
-			copy(newmodelers.begin(), newmodelers.end(), back_inserter((*result))); // Save new modeler to result
-		}
-		else if (startsWith(keys[i], "R")) { // Rotating around axis
-			vector<float> args = parseArguments(keys[i]);
-			currentmodel.rotate(vector3d(args[0], args[1], args[2]));
-		}
-		else if (startsWith(keys[i], "Comp")) { // Split scope into plains
-			string type = splitString(keys[i], '(', ')')[1];
-			vector<string> parameters = parseParameters(keys[i]);
-			vector<modeler> newmodelers = currentmodel.componentSplit(type, parameters);
-			copy(newmodelers.begin(), newmodelers.end(), back_inserter((result))); // Save new modeler to result
-		}
-		else runtime_error("ERROR in parser : that command does not exist");
 	}
-	
-	return currentmodel;
 }
 
 // Split std::string in order to parse each part of the rule
