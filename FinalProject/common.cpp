@@ -2,6 +2,56 @@
 
 using namespace std;
 
+// Split std::string in order to parse each part of the rule
+vector<std::string> splitString(std::string line, char del, char del2) {
+	vector<std::string> wordsLine;
+	unsigned int lastPos = 0;
+	for (unsigned int i = 0; i < line.length(); i++) {
+		if (line[i] == del || line[i] == del2) {
+			wordsLine.push_back(line.substr(lastPos, i - lastPos));
+			lastPos = i + 1;
+		}
+	}
+	if (lastPos != line.length())
+		wordsLine.push_back(line.substr(lastPos, line.length() - lastPos));
+	return wordsLine;
+}
+
+// Compare words in order to find the specific prefix (e.g. T, R, Subdiv...)
+bool startsWith(std::string str, std::string prefix) {
+	return str.compare(0, prefix.length(), prefix) == 0; // Return TRUE or FALSE
+}
+
+// Extract the arguments
+vector<string> parseParameters(string token) {
+	return splitString(splitString(token, '{', '}')[1], ',', ',');
+}
+
+// Class RULE
+
+// Constructor
+rule::rule() {
+
+}
+
+rule::rule(std::string head, std::string rules) {
+	this->head = head;
+	this->rules = rules;
+	this->probability = 1;
+}
+
+rule::rule(std::string head, std::string rules, double probability) {
+	this->head = head;
+	this->rules = rules;
+	this->probability = probability;
+}
+
+rule::~rule() {
+
+}
+
+// Class Vector3d
+
 vector3d::vector3d() {
 	this->x = 0;
 	this->y = 0;

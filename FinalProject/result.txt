@@ -1,0 +1,54 @@
+Name: main
+Position: (0, 0, 0)
+Size: (180, 180, 180)
+Texture: 
+Children: [ house ]
+
+Name: house
+Position: (0, 0, 0)
+Size: (180, 180, 180)
+Texture: 
+Children: [ wall1 wall2 wall3 ground ]
+
+Name: wall1
+Position: (180, 0, 0)
+Size: (0, 180, 180)
+Texture: 
+Children: [ wallpaper wallMiddle1 wallpaper ]
+
+Name: wall2
+Position: (0, 0, 180)
+Size: (180, 180, 0)
+Texture: 
+Children: [ ]
+
+Name: wall3
+Position: (0, 0, 0)
+Size: (0, 180, 180)
+Texture: 
+Children: [ ]
+
+Name: ground
+Position: (0, 0, 0)
+Size: (180, 0, 180)
+Texture: 
+Children: [ ]
+
+Name: wallpaper
+Position: (180, 0, 0)
+Size: (0, 36, 180)
+Texture: wall
+Children: [ ]
+
+Name: wallMiddle1
+Position: (180, 36, 0)
+Size: (0, 108, 180)
+Texture: 
+Children: [ ]
+
+Name: wallpaper
+Position: (180, 144, 0)
+Size: (0, 36, 180)
+Texture: wall
+Children: [ ]
+

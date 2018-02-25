@@ -1,6 +1,8 @@
 #ifndef __COMMON_H
 #define __COMMON_H
 #include<iostream>
+#include <vector>
+#include <string>
 
 using namespace std;
 
@@ -9,6 +11,25 @@ using namespace std;
 */
 
 enum TypeObject { INACTIVE, CUBE, CYLINDER, SCOPE, PLAIN, SOFA, TABLE, CABINET, CHAIR, TOY };
+
+
+vector<std::string> splitString(std::string str, char delimeter, char delimeter2);
+bool startsWith(std::string str, std::string prefix);
+vector<string> parseParameters(string token);
+
+class rule {
+public:
+	// Variables
+	std::string head;
+	std::string rules;
+	double probability;
+
+	// Methods
+	rule();
+	rule(std::string head, std::string rules);
+	rule(std::string head, std::string rules, double probability);
+	~rule();
+};
 
 class vector3d {
 private:
