@@ -4,6 +4,11 @@
 #include <iostream>
 #include <vector>
 #include <map>
+#include <string>
+#include "math.h"
+#include <deque>
+#include <queue>
+#include <fstream>
 #include "common.h"
 #include "parser.h"
 
@@ -42,22 +47,18 @@ public:
 
 	void initModel();
 	TypeObject stringToType(string str);
-	void ruleToModel(vector<rule> rules);
+	modeler* ruleToModel(vector<rule> rules);
 	map<string,string> ruleToMap(vector<rule> rules);
 	vector<float> parseArguments(string token, modeler* parent);
+	vector<modeler*> printTree(modeler* data);
 
 	// Rules operators
-	void comp(string type, vector<string> newmodelerNames, modeler* parent); // Splits the modeler into modelers of lesser dimensions
-	void subDiv(int axis, vector<float> ratios, vector<string> newmodelerNames, modeler* parent); // Splits the current scope along one specific axis
-	void repeat(int axis, int times, string newmodelersName, modeler* parent); // Allow for larger scale changes in the split rules, we often want to tile a specified element.
 	modeler &translate(vector3d translation); // Translation vector
+	void subDiv(int axis, vector<float> ratios, vector<string> newmodelerNames, modeler* parent); // Splits the current scope along one specific axis
+	void comp(string type, vector<string> newmodelerNames, modeler* parent); // Splits the modeler into modelers of lesser dimensions
+	void repeat(int axis, int times, string newmodelersName, modeler* parent); // Allow for larger scale changes in the split rules, we often want to tile a specified element.
 	modeler &rotate(vector3d angles); // Rotation 
 	vector3d rotate_axis(vector3d &position, float degrees, int axe);
-
-	modeler* GenerateModel();
-	vector<modeler*> printTree(modeler* data);
-	
 };
-
 
 #endif

@@ -1,14 +1,14 @@
-#include <iterator>
-#include <algorithm> 
-#include <string>
-#include <fstream>
-#include <ctime>
 #include "parser.h"
 
 using namespace std;
 
 // Import the file (that contains the rules) in the attribute fileName
 // Constructor
+
+parser::parser() {
+
+}
+
 parser::parser(std::string file) {
 	this->fileName = file;
 }
@@ -18,9 +18,11 @@ vector<std::string> parser::readLines(std::string file) {
 	vector<std::string> linesFile;
 	ifstream dict_file(file);
 	std::string line;
-	while (getline(dict_file, line))
-		if (line[0] != '#') // Ignoring '#' that are use for comments
+	while (getline(dict_file, line)) {
+		if (line[0] != '#') { // Ignoring '#' that are use for comments
 			linesFile.push_back(line);
+		}
+	}
 	return linesFile;
 }
 
@@ -58,7 +60,6 @@ vector<rule> parser::parseProb(vector<std::string> lines) {
 				double  probability = createRandom();
 				winner.push_back(searchClosest(temp, probability));
 				temp.clear();
-				// cout << probability << endl;
 			}
 			flag = false;
 			f = false;
@@ -72,7 +73,6 @@ vector<rule> parser::parseProb(vector<std::string> lines) {
 			double  probability = createRandom();
 			winner.push_back(searchClosest(temp, probability));
 			temp.clear();
-			// cout << probability << endl;
 		}
 	}
 	parseRules = eraseLosers(parseRules, winner);

@@ -27,7 +27,7 @@ vector<string> parseParameters(string token) {
 	return splitString(splitString(token, '{', '}')[1], ',', ',');
 }
 
-// Class RULE
+// Class rule
 
 // Constructor
 rule::rule() {
@@ -50,7 +50,7 @@ rule::~rule() {
 
 }
 
-// Class Vector3d
+// Class vector3d
 
 vector3d::vector3d() {
 	this->x = 0;
@@ -120,4 +120,3 @@ void vector3d::setVector(vector3d &vector) {
 	this->y = vector.getY();
 	this->z = vector.getZ();
 }
-

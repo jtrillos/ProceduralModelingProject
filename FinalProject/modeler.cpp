@@ -1,17 +1,10 @@
 #include "modeler.h"
-#include "common.h"
-#include <string>
-#include "math.h"
-#include<iostream>
-#include <deque>
-#include <queue>
-#include <vector>
-#include <fstream>
 
 using namespace std;
 
+// Global variables/constants
 const float PI = 3.14159265358979323846;
-vector<modeler*> list;
+vector<modeler*> list; // Temporal list
 modeler* tree;
 
 modeler::modeler() {
@@ -34,12 +27,9 @@ modeler::modeler(string name, vector3d position, vector3d size, string texture, 
 }
 
 modeler &modeler::setSize(vector3d newSize) {
-	if (newSize.getX() > -1000)
-		this->size.setElement(0, newSize.getX());
-	if (newSize.getY() > -1000)
-		this->size.setElement(1, newSize.getY());
-	if (newSize.getZ() > -1000)
-		this->size.setElement(2, newSize.getZ());
+	this->size.setElement(0, newSize.getX());
+	this->size.setElement(1, newSize.getY());
+	this->size.setElement(2, newSize.getZ());
 	return *this;
 }
 
@@ -56,12 +46,9 @@ TypeObject modeler::getType() {
 }
 
 modeler &modeler::setSymbolPosition(vector3d newPosition) {
-	if (newPosition.getX() > -1000)
-		this->symbolPosition.setElement(0, newPosition.getX());
-	if (newPosition.getY() > -1000)
-		this->symbolPosition.setElement(1, newPosition.getY());
-	if (newPosition.getZ() > -1000)
-		this->symbolPosition.setElement(2, newPosition.getZ());
+	this->symbolPosition.setElement(0, newPosition.getX());
+	this->symbolPosition.setElement(1, newPosition.getY());
+	this->symbolPosition.setElement(2, newPosition.getZ());
 	return *this;
 }
 
@@ -118,17 +105,17 @@ TypeObject modeler::stringToType(string str) {
 }
 
 // Read a string line and transformed it into a rule
-void modeler::ruleToModel(vector<rule> r) {
+modeler* modeler::ruleToModel(vector<rule> r) {
 	map<string,string> mapRule = ruleToMap(r); // I transform the vector<rule> into a map<string,string> in order to compare it with the temporal list
-	initModel();
+	initModel(); // I initialize the model
 	while (list.size()) {
-		modeler *currentmodel = list[0];
-		list.erase(list.begin());
-		string modelerName = currentmodel->getName();
-		if (mapRule.find(modelerName) != mapRule.end()) {
-			string rules = mapRule.at(modelerName);
+		modeler *currentmodel = list[0]; // Copy of the model in the temporal ist 
+		list.erase(list.begin()); // Erase the first element in the temporal list
+		string modelerName = currentmodel->getName(); // Copy the head of the currentmodel
+		if (mapRule.find(modelerName) != mapRule.end()) { // Search in the map if the head exist
+			string rules = mapRule.at(modelerName); // Copy the rules of that specific head
 			vector<string> keys = splitString(rules, ' ', ' ');
-			for (int i = 0; i < keys.size(); i++) {
+			for (int i = 0; i < keys.size(); i++) { // Start transforming the rules in models
 				if (startsWith(keys[i], "T")) { // Translation
 					vector<float> args = parseArguments(keys[i], currentmodel);
 					currentmodel->translate(vector3d(args[0], args[1], args[2]));
@@ -177,9 +164,10 @@ void modeler::ruleToModel(vector<rule> r) {
 			}
 		}
 	}
+	return tree;
 }
 
-//transform the vector<rule> in a map<string head,string rules>
+// Transform the vector<rule> in a map<string head,string rules>
 map<string,string> modeler::ruleToMap(vector<rule> rules) {
 	map<string,string> r;
 	for (int i = 0; i < rules.size(); i++) {
@@ -193,12 +181,12 @@ vector<float> modeler::parseArguments(string token, modeler* parent) {
 	vector<string> args = splitString(splitString(token, '(', ')')[1], ',', ',');
 	vector<float> vec;
 	for (int k = 0; k < args.size(); k++) {
-		if (startsWith(args[k], "rnd")) {
+		if (startsWith(args[k], "rnd")) { 
 			vector<string> rArgs = splitString(splitString(args[k], '<', '>')[1], '-', '-');
 			vec.push_back(stof(rArgs[0]));
 			vec.push_back(stof(rArgs[1]));
 		}
-		else if (startsWith(args[k], "r")) {
+		else if (startsWith(args[k], "r")) { // The arguments contain a float variable between 0 to 1 
 			int axis = vec[0];
 			string number = args[k].substr(1, args[k].length());
 			float size = parent->getSize().getElement(axis);;
@@ -210,6 +198,63 @@ vector<float> modeler::parseArguments(string token, modeler* parent) {
 		}
 	}
 	return vec;
+}
+
+vector<modeler*> modeler::printTree(modeler* data) {
+	list.push_back(data); // Copy the data in the temporal list
+	vector<modeler*> tree; // Output the tree in a vector<modeler>
+	ofstream cout("result.txt"); // And output in a file .txt
+	while (list.size()) {
+		modeler* item = list[0];
+		list.erase(list.begin());
+		tree.push_back(item);
+
+		cout << "Name: " << item->getName() << endl;
+		vector3d& position = item->getSymbolPosition();
+		cout << "Position: (" << position.getX() << ", " << position.getY() << ", " << position.getZ() << ")" << endl;
+		vector3d& size = item->getSize();
+		cout << "Size: (" << size.getX() << ", " << size.getY() << ", " << size.getZ() << ")" << endl;
+		cout << "Texture: " << item->getTexture() << endl;
+		cout << "Type: " << item->getType() << endl;
+		cout << "Children: [ ";
+		for (int i = 0; i<item->children.size(); i++) {
+			modeler *child = item->children[i];
+			cout << child->getName() << " ";
+			list.push_back(child);
+		}
+		cout << "]" << endl << endl;
+	}
+	cout.close();
+	return tree;
+}
+
+modeler &modeler::translate(vector3d translation) {
+	this->symbolPosition.addElement(translation);
+	return *this;
+}
+
+void modeler::subDiv(int axis, vector<float> ratios, vector<string> newModelNames, modeler* parent) {
+	if (ratios.size() != newModelNames.size()) {
+		runtime_error("ERROR: Split. Ratios and Names should have the same size");
+	}
+	else {
+		vector3d newPosition = parent->symbolPosition.copyVector();;
+		vector3d newSize = parent->size.copyVector();
+		float positionChange = parent->symbolPosition.getElement(axis);
+
+		for (int i = 0; i < ratios.size(); i++) {
+			newSize.setElement(axis, ratios[i]);
+			if (i != 0)
+				positionChange += ratios[i - 1];
+			newPosition.setElement(axis, positionChange);
+			modeler* newModel = new modeler(newModelNames[i]);
+			newModel->setSymbolPosition(newPosition);
+			newModel->setSize(newSize);
+			newModel->setType(parent->type);
+			parent->children.push_back(newModel);
+			list.push_back(newModel);
+		}
+	}
 }
 
 void modeler::comp(string type, vector<string> newModelNames, modeler* parent) {
@@ -278,36 +323,10 @@ void modeler::comp(string type, vector<string> newModelNames, modeler* parent) {
 	}
 }
 
-void modeler::subDiv(int axis, vector<float> ratios, vector<string> newModelNames, modeler* parent) {
-	if (ratios.size() != newModelNames.size()) {
-		runtime_error("ERROR: Split. Ratios and Names should have the same size");
-	}
-	else {
-		vector3d newPosition = parent->symbolPosition.copyVector();;
-		vector3d newSize = parent->size.copyVector();
-		float positionChange = parent->symbolPosition.getElement(axis);
-
-		for (int i = 0; i < ratios.size(); i++) {
-			newSize.setElement(axis, ratios[i]);
-			if (i != 0)
-				positionChange += ratios[i - 1];
-			newPosition.setElement(axis, positionChange);
-			modeler* newModel = new modeler(newModelNames[i]);
-			newModel->setSymbolPosition(newPosition);
-			newModel->setSize(newSize);
-			newModel->setType(parent->type);
-			parent->children.push_back(newModel);
-			list.push_back(newModel);
-		}
-	}
-}
-
 void modeler::repeat(int axis, int times, string newModelsName, modeler* parent) {
 	float ratio = parent->size.getElement(axis) / times;
-
 	vector3d newPosition = parent->symbolPosition.copyVector();
 	vector3d newSize = parent->size.copyVector();
-
 	float initPosition = parent->symbolPosition.getElement(axis);
 	for (int i = 0; i<times; i++) {
 		newPosition.setElement(axis, initPosition + i * ratio);
@@ -319,11 +338,6 @@ void modeler::repeat(int axis, int times, string newModelsName, modeler* parent)
 		parent->children.push_back(newModel);
 		list.push_back(newModel);
 	}
-}
-
-modeler &modeler::translate(vector3d translation) {
-	this->symbolPosition.addElement(translation);
-	return *this;
 }
 
 modeler &modeler::rotate(vector3d angles) {
@@ -361,38 +375,6 @@ vector3d modeler::rotate_axis(vector3d &size, float degrees, int axis) {
 	default:
 		break;
 	}
-
 	return vector3d(x, y, z);
 }
 
-modeler* modeler::GenerateModel() {
-	return tree;
-}
-
-vector<modeler*> modeler::printTree(modeler* data) {
-	list.push_back(data); // list with the tree
-	vector<modeler*> tree; 
-	ofstream cout("result.txt");
-	while (list.size()) {
-		modeler* cur_item = list[0];
-		list.erase(list.begin());
-		tree.push_back(cur_item);
-
-		cout << "Name: " << cur_item->getName() << endl;
-		vector3d& position = cur_item->getSymbolPosition();
-		cout << "Position: (" << position.getX() << ", " << position.getY() << ", " << position.getZ() << ")" << endl;
-		vector3d& size = cur_item->getSize();
-		cout << "Size: (" << size.getX() << ", " << size.getY() << ", " << size.getZ() << ")" << endl;
-		cout << "Texture: " << cur_item->getTexture() << endl;
-		cout << "Children: [ ";
-		for (int i = 0; i<cur_item->children.size(); i++) {
-			modeler *child = cur_item->children[i];
-			cout << child->getName() << " ";
-			list.push_back(child);
-		}
-		cout << "]" << endl << endl;
-	}
-	cout.close();
-	return tree;
-
-}

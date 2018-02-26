@@ -7,7 +7,7 @@
 using namespace std;
 
 /*
-* Here you can find all the common functionalities or data types neccessary
+* Here you can find all the common classes, methods, variables neccessary
 */
 
 enum TypeObject { INACTIVE, CUBE, CYLINDER, SCOPE, PLAIN, SOFA, TABLE, CABINET, CHAIR, TOY };
@@ -51,6 +51,5 @@ public:
 	float getZ();
 	void setVector(vector3d& that);
 };
-
 
 #endif

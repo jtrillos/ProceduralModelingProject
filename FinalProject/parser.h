@@ -5,10 +5,13 @@
 #include <vector>
 #include <random>
 #include <math.h>  
+#include <iterator>
+#include <algorithm> 
+#include <string>
+#include <ctime>
 #include "modeler.h"
 
 using namespace std;
-
 
 class parser {
 private:
@@ -24,6 +27,7 @@ private:
 
 public:
 	// Methods
+	parser();
 	parser(std::string rulesFile); // Constructor
 	vector<rule> parseRules();
 };
