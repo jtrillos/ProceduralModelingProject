@@ -74,6 +74,9 @@ bool render::rendering(vector<modeler*> tree) {
 	// -------------------------
 	Shader ourShader("shaders/vertex_shader.glsl", "shaders/fragment_shader.glsl");
 
+	// load models
+	/*Object ourObject("resources/objects/plain/plain.obj");
+	TextureFromFile("wall.bmp", "resources/textures", false);*/
 
 	// draw in wireframe
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -101,13 +104,20 @@ bool render::rendering(vector<modeler*> tree) {
 		ourShader.use();
 
 		// view/projection transformations
-		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+		//glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+		glm::mat4 projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
 		glm::mat4 view = camera.GetViewMatrix();
 		ourShader.setMat4("projection", projection);
 		ourShader.setMat4("view", view);
 
 		drawTree(ourShader);
 
+		// render the loaded model
+		/*glm::mat4 model;
+		model = glm::translate(model, glm::vec3(18, 0, 0)); // translate it down so it's at the center of the scene
+		model = glm::scale(model, glm::vec3(0, 18, 18));	// it's a bit too big for our scene, so scale it down
+		ourShader.setMat4("model", model);
+		ourObject.Draw(ourShader);*/
 
 		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
 		// -------------------------------------------------------------------------------
@@ -199,7 +209,7 @@ void render::drawTree(Shader ourShader) {
 			drawCylinder(position, size, ourShader, mod->getTexture() + ".bmp");
 			break;
 		case PLAIN:
-			drawPlain(position, size, ourShader);
+			drawPlain(position, size, ourShader, mod->getTexture() + ".bmp");
 			break;
 		case SOFA:
 			drawSofa(position, size, ourShader, mod->getTexture() + ".bmp");
@@ -220,51 +230,16 @@ void render::drawTree(Shader ourShader) {
 	}
 }
 
-void render::drawPlain(vector3d& position, vector3d& size, Shader ourShader) {
-	float timesX = size.getX() / 10;
-	float timesY = size.getY() / 10;
-	float timesZ = size.getZ() / 10;
+void render::drawPlain(vector3d& position, vector3d& size, Shader ourShader, string texture) {
+	const char * c = texture.c_str();
+	Object ourObject("resources/objects/plain/plain.obj");
+	TextureFromFile(c, "resources/textures", false);
 
-	glBegin(GL_QUADS);
-
-
-	if (size.getX() <= 0) {
-		glNormal3f(size.getX() + 1, 0.0F, 0.0F);
-		glTexCoord2f(0, 0);
-		glVertex3f(position.getX(), position.getY(), position.getZ());
-		glTexCoord2f(timesZ, 0);
-		glVertex3f(position.getX(), position.getY(), position.getZ() + size.getZ());
-		glTexCoord2f(timesZ, timesY);
-		glVertex3f(position.getX(), position.getY() + size.getY(), position.getZ() + size.getZ());
-		glTexCoord2f(0, timesY);
-		glVertex3f(position.getX(), position.getY() + size.getY(), position.getZ());
-		glEnd();
-	}
-	else if (size.getY() <= 0) {
-		glNormal3f(0.0F, size.getY() + 1, 0.0F);
-		glTexCoord2f(0, 0);
-		glVertex3f(position.getX(), position.getY(), position.getZ());
-		glTexCoord2f(0, timesZ);
-		glVertex3f(position.getX(), position.getY(), position.getZ() + size.getZ());
-		glTexCoord2f(timesX, timesZ);
-		glVertex3f(position.getX() + size.getX(), position.getY(), position.getZ() + size.getZ());
-		glTexCoord2f(timesX, 0);
-		glVertex3f(position.getX() + size.getX(), position.getY(), position.getZ());
-		glEnd();
-	}
-	else if (size.getZ() <= 0) {
-		glNormal3f(0.0F, 0.0F, size.getZ() + 1);
-		glTexCoord2f(0, 0);
-		glVertex3f(position.getX(), position.getY(), position.getZ());
-		glTexCoord2f(timesX, 0);
-		glVertex3f(position.getX() + size.getX(), position.getY(), position.getZ());
-		glTexCoord2f(timesX, timesY);
-		glVertex3f(position.getX() + size.getX(), position.getY() + size.getY(), position.getZ());
-		glTexCoord2f(0, timesY);
-		glVertex3f(position.getX(), position.getY() + size.getY(), position.getZ());
-		glEnd();
-	}
-	else throw "Not a plain!";
+	glm::mat4 model;
+	model = glm::translate(model, glm::vec3(position.getX(), position.getY(), position.getZ())); // translate it down so it's at the center of the scene
+	model = glm::scale(model, glm::vec3(size.getX(), size.getY(), size.getZ()));	// it's a bit too big for our scene, so scale it down
+	ourShader.setMat4("model", model);
+	ourObject.Draw(ourShader);
 }
 
 void render::drawCube(vector3d& position, vector3d& size, Shader ourShader, string texture) {

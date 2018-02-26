@@ -28,7 +28,7 @@ class render
 public:
 	bool rendering(vector<modeler*> tree);
 	void drawTree(Shader ourShader);
-	void drawPlain(vector3d& position, vector3d& size, Shader ourShader);
+	void drawPlain(vector3d& position, vector3d& size, Shader ourShader, string texture);
 	void drawCube(vector3d& position, vector3d& size, Shader ourShader, string texture);
 	void drawCylinder(vector3d& position, vector3d& size, Shader ourShader, string texture);
 	void drawSofa(vector3d& position, vector3d& size, Shader ourShader, string texture);

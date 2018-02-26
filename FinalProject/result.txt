@@ -1,70 +1,70 @@
 Name: main
 Position: (0, 0, 0)
-Size: (180, 180, 180)
+Size: (18, 18, 18)
 Texture: 
 Type: 3
 Children: [ house ]
 
 Name: house
 Position: (0, 0, 0)
-Size: (180, 180, 180)
+Size: (18, 18, 18)
 Texture: 
 Type: 3
 Children: [ wall1 wall2 wall3 ground ]
 
 Name: wall1
-Position: (180, 0, 0)
-Size: (0, 180, 180)
+Position: (18, 0, 0)
+Size: (0, 18, 18)
 Texture: 
 Type: 3
 Children: [ wallpaper ]
 
 Name: wall2
-Position: (0, 0, 180)
-Size: (180, 180, 0)
+Position: (0, 0, 18)
+Size: (18, 18, 0)
 Texture: 
 Type: 3
 Children: [ wallpaper ]
 
 Name: wall3
 Position: (0, 0, 0)
-Size: (0, 180, 180)
+Size: (0, 18, 18)
 Texture: 
 Type: 3
 Children: [ wallpaper ]
 
 Name: ground
 Position: (0, 0, 0)
-Size: (180, 0, 180)
+Size: (18, 0, 18)
 Texture: 
 Type: 3
 Children: [ wallpaper ]
 
 Name: wallpaper
-Position: (180, 0, 0)
-Size: (0, 180, 180)
+Position: (18, 0, 0)
+Size: (0, 18, 18)
 Texture: wall
-Type: 4
+Type: 1
 Children: [ ]
 
 Name: wallpaper
-Position: (0, 0, 180)
-Size: (180, 180, 0)
+Position: (0, 0, 18)
+Size: (18, 18, 0)
 Texture: wall
-Type: 4
-Children: [ ]
-
-Name: wallpaper
-Position: (0, 0, 0)
-Size: (0, 180, 180)
-Texture: wall
-Type: 4
+Type: 1
 Children: [ ]
 
 Name: wallpaper
 Position: (0, 0, 0)
-Size: (180, 0, 180)
+Size: (0, 18, 18)
 Texture: wall
-Type: 4
+Type: 1
+Children: [ ]
+
+Name: wallpaper
+Position: (0, 0, 0)
+Size: (18, 0, 18)
+Texture: wall
+Type: 1
 Children: [ ]
 
