@@ -17,47 +17,278 @@ Position: (180, 0, 0)
 Size: (0, 180, 180)
 Texture: 
 Type: 3
-Children: [ wallpaper wallMiddle1 wallpaper ]
+Children: [ wallpaper ]
 
 Name: wall2
 Position: (0, 0, 180)
 Size: (180, 180, 0)
 Texture: 
 Type: 3
-Children: [ ]
+Children: [ wallpaper wallMiddle2 wallpaper ]
 
 Name: wall3
 Position: (0, 0, 0)
 Size: (0, 180, 180)
 Texture: 
 Type: 3
-Children: [ ]
+Children: [ wallpaper walldoor wall wallMiddle3 wallpaper ]
 
 Name: ground
 Position: (0, 0, 0)
 Size: (180, 0, 180)
 Texture: 
 Type: 3
-Children: [ ]
+Children: [ floor f1 floor f2 floor f3 floor ]
 
 Name: wallpaper
 Position: (180, 0, 0)
-Size: (0, 36, 180)
+Size: (0, 60, 180)
 Texture: wall
 Type: 4
 Children: [ ]
 
-Name: wallMiddle1
-Position: (180, 36, 0)
-Size: (0, 108, 180)
+Name: wallpaper
+Position: (0, 0, 180)
+Size: (60, 180, 0)
+Texture: wall
+Type: 4
+Children: [ ]
+
+Name: wallMiddle2
+Position: (60, 0, 180)
+Size: (60, 180, 0)
+Texture: 
+Type: 3
+Children: [ wallpaper tv wallpaper ]
+
+Name: wallpaper
+Position: (120, 0, 180)
+Size: (60, 180, 0)
+Texture: wall
+Type: 4
+Children: [ ]
+
+Name: wallpaper
+Position: (0, 0, 0)
+Size: (0, 180, 30)
+Texture: wall
+Type: 4
+Children: [ ]
+
+Name: walldoor
+Position: (0, 0, 30)
+Size: (0, 180, 25)
+Texture: 
+Type: 3
+Children: [ wallpaper door ]
+
+Name: wall
+Position: (0, 0, 55)
+Size: (0, 180, 125)
 Texture: 
 Type: 3
 Children: [ ]
 
+Name: wallMiddle3
+Position: (0, 0, 180)
+Size: (0, 180, 30)
+Texture: 
+Type: 3
+Children: [ wallpaper picture wallpaper ]
+
 Name: wallpaper
-Position: (180, 144, 0)
-Size: (0, 36, 180)
+Position: (0, 0, 210)
+Size: (0, 180, 40)
 Texture: wall
+Type: 4
+Children: [ ]
+
+Name: floor
+Position: (0, 0, 0)
+Size: (30, 0, 180)
+Texture: floor
+Type: 4
+Children: [ ]
+
+Name: f1
+Position: (30, 0, 0)
+Size: (30, 0, 180)
+Texture: 
+Type: 3
+Children: [ floor chair floor cabinet ]
+
+Name: floor
+Position: (60, 0, 0)
+Size: (10, 0, 180)
+Texture: floor
+Type: 4
+Children: [ ]
+
+Name: f2
+Position: (70, 0, 0)
+Size: (40, 0, 180)
+Texture: 
+Type: 3
+Children: [ floor sofa floor table floor ]
+
+Name: floor
+Position: (110, 0, 0)
+Size: (10, 0, 180)
+Texture: floor
+Type: 4
+Children: [ ]
+
+Name: f3
+Position: (120, 0, 0)
+Size: (30, 0, 180)
+Texture: 
+Type: 3
+Children: [ floor chair1 floor ]
+
+Name: floor
+Position: (150, 0, 0)
+Size: (30, 0, 180)
+Texture: floor
+Type: 4
+Children: [ ]
+
+Name: wallpaper
+Position: (60, 0, 180)
+Size: (60, 80, 0)
+Texture: wall
+Type: 4
+Children: [ ]
+
+Name: tv
+Position: (60, 80, 180)
+Size: (60, 40, 0)
+Texture: tv
+Type: 4
+Children: [ ]
+
+Name: wallpaper
+Position: (60, 120, 180)
+Size: (60, 60, 0)
+Texture: wall
+Type: 4
+Children: [ ]
+
+Name: wallpaper
+Position: (0, 0, 30)
+Size: (0, 120, 25)
+Texture: wall
+Type: 4
+Children: [ ]
+
+Name: door
+Position: (0, 120, 30)
+Size: (0, 60, 25)
+Texture: door
+Type: 4
+Children: [ ]
+
+Name: wallpaper
+Position: (0, 0, 180)
+Size: (0, 60, 30)
+Texture: wall
+Type: 4
+Children: [ ]
+
+Name: picture
+Position: (0, 60, 180)
+Size: (0, 40, 30)
+Texture: picture
+Type: 4
+Children: [ ]
+
+Name: wallpaper
+Position: (0, 100, 180)
+Size: (0, 80, 30)
+Texture: wall
+Type: 4
+Children: [ ]
+
+Name: floor
+Position: (30, 0, 0)
+Size: (30, 0, 90)
+Texture: floor
+Type: 4
+Children: [ ]
+
+Name: chair
+Position: (30, 0, 90)
+Size: (30, 20, 30)
+Texture: armchair
+Type: 40
+Children: [ ]
+
+Name: floor
+Position: (30, 0, 120)
+Size: (30, 0, 30)
+Texture: floor
+Type: 4
+Children: [ ]
+
+Name: cabinet
+Position: (30, 0, 150)
+Size: (30, 100, 30)
+Texture: cabinet
+Type: 7
+Children: [ ]
+
+Name: floor
+Position: (70, 0, 0)
+Size: (40, 0, 50)
+Texture: floor
+Type: 4
+Children: [ ]
+
+Name: sofa
+Position: (70, 0, 50)
+Size: (40, 15, 30)
+Texture: sofa
+Type: 5
+Children: [ ]
+
+Name: floor
+Position: (70, 0, 80)
+Size: (40, 0, 10)
+Texture: floor
+Type: 4
+Children: [ ]
+
+Name: table
+Position: (70, 0, 90)
+Size: (40, 15, 30)
+Texture: table
+Type: 6
+Children: [ ]
+
+Name: floor
+Position: (70, 0, 120)
+Size: (40, 0, 60)
+Texture: floor
+Type: 4
+Children: [ ]
+
+Name: floor
+Position: (120, 0, 0)
+Size: (30, 0, 90)
+Texture: floor
+Type: 4
+Children: [ ]
+
+Name: chair1
+Position: (120, 0, 90)
+Size: (-30, -20, 30)
+Texture: rug
+Type: 9
+Children: [ ]
+
+Name: floor
+Position: (120, 0, 120)
+Size: (30, 0, 60)
+Texture: floor
 Type: 4
 Children: [ ]
 
