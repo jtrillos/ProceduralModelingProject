@@ -1,0 +1,9 @@
+main=S(180,180,180) Subdiv(0,180){house}
+#house
+house=Comp(sides){wall1,wall2,wall3,ground}
+#wall1
+wall1=Subdiv(1,180){wallpaper}
+wall2=Subdiv(1,180){wallpaper}
+wall3=Subdiv(1,180){wallpaper}
+ground=Subdiv(0,180){wallpaper}
+wallpaper=I(plain){wall}

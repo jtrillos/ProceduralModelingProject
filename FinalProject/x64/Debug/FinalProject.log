@@ -1,60 +1,17 @@
 ﻿  stdafx.cpp
   parser.cpp
-c:\users\jaimemtrillos\google drive\uni-bonn\labgraphics\labgraphics2017\proceduralmodelingproject\finalproject\parser.cpp(99): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-c:\users\jaimemtrillos\google drive\uni-bonn\labgraphics\labgraphics2017\proceduralmodelingproject\finalproject\parser.cpp(149): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-c:\users\jaimemtrillos\google drive\uni-bonn\labgraphics\labgraphics2017\proceduralmodelingproject\finalproject\parser.cpp(153): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\jaimemtrillos\google drive\uni-bonn\labgraphics\labgraphics2017\proceduralmodelingproject\finalproject\parser.cpp(198): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.12.25827\include\type_traits(16707566): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.12.25827\include\functional(16707566): note: see reference to function template instantiation '_Rx std::_Invoker_ret<_Rx,false>::_Call<_Callable&>(_Callable &)' being compiled
-          with
-          [
-              _Rx=float,
-              _Callable=parser::parseArguments::<lambda_b6deff36a1514e60c5af0cd605884ce2>
-          ]
-  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.12.25827\include\functional(16707566): note: see reference to function template instantiation '_Rx std::_Invoker_ret<_Rx,false>::_Call<_Callable&>(_Callable &)' being compiled
-          with
-          [
-              _Rx=float,
-              _Callable=parser::parseArguments::<lambda_b6deff36a1514e60c5af0cd605884ce2>
-          ]
-  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.12.25827\include\functional(15732480): note: while compiling class template member function 'float std::_Func_impl_no_alloc<parser::parseArguments::<lambda_b6deff36a1514e60c5af0cd605884ce2>,_Ret>::_Do_call(void)'
-          with
-          [
-              _Ret=float
-          ]
-  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.12.25827\include\functional(261): note: see reference to class template instantiation 'std::_Func_impl_no_alloc<parser::parseArguments::<lambda_b6deff36a1514e60c5af0cd605884ce2>,_Ret>' being compiled
-          with
-          [
-              _Ret=float
-          ]
-  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.12.25827\include\functional(513): note: see reference to class template instantiation 'std::_Is_large<_Impl>' being compiled
-  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.12.25827\include\functional(702): note: see reference to function template instantiation 'void std::_Func_class<_Ret>::_Reset<parser::parseArguments::<lambda_b6deff36a1514e60c5af0cd605884ce2>>(_Fx &&)' being compiled
-          with
-          [
-              _Ret=float,
-              _Fx=parser::parseArguments::<lambda_b6deff36a1514e60c5af0cd605884ce2>
-          ]
-  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.12.25827\include\functional(702): note: see reference to function template instantiation 'void std::_Func_class<_Ret>::_Reset<parser::parseArguments::<lambda_b6deff36a1514e60c5af0cd605884ce2>>(_Fx &&)' being compiled
-          with
-          [
-              _Ret=float,
-              _Fx=parser::parseArguments::<lambda_b6deff36a1514e60c5af0cd605884ce2>
-          ]
-  c:\users\jaimemtrillos\google drive\uni-bonn\labgraphics\labgraphics2017\proceduralmodelingproject\finalproject\parser.cpp(195): note: see reference to function template instantiation 'std::function<float (void)>::function<parser::parseArguments::<lambda_b6deff36a1514e60c5af0cd605884ce2>,void>(_Fx)' being compiled
-          with
-          [
-              _Fx=parser::parseArguments::<lambda_b6deff36a1514e60c5af0cd605884ce2>
-          ]
-  c:\users\jaimemtrillos\google drive\uni-bonn\labgraphics\labgraphics2017\proceduralmodelingproject\finalproject\parser.cpp(195): note: see reference to function template instantiation 'std::function<float (void)>::function<parser::parseArguments::<lambda_b6deff36a1514e60c5af0cd605884ce2>,void>(_Fx)' being compiled
-          with
-          [
-              _Fx=parser::parseArguments::<lambda_b6deff36a1514e60c5af0cd605884ce2>
-          ]
+c:\users\jaimemtrillos\documents\proceduralmodelingproject\finalproject\parser.cpp(84): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   modeler.cpp
-c:\users\jaimemtrillos\google drive\uni-bonn\labgraphics\labgraphics2017\proceduralmodelingproject\finalproject\modeler.cpp(11): warning C4305: 'initializing': truncation from 'double' to 'float'
-c:\users\jaimemtrillos\google drive\uni-bonn\labgraphics\labgraphics2017\proceduralmodelingproject\finalproject\modeler.cpp(50): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\jaimemtrillos\documents\proceduralmodelingproject\finalproject\modeler.cpp(6): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\users\jaimemtrillos\documents\proceduralmodelingproject\finalproject\modeler.cpp(126): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\jaimemtrillos\documents\proceduralmodelingproject\finalproject\modeler.cpp(133): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\jaimemtrillos\documents\proceduralmodelingproject\finalproject\modeler.cpp(156): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\jaimemtrillos\documents\proceduralmodelingproject\finalproject\modeler.cpp(157): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\jaimemtrillos\documents\proceduralmodelingproject\finalproject\modeler.cpp(190): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\jaimemtrillos\documents\proceduralmodelingproject\finalproject\modeler.cpp(197): warning C4244: 'argument': conversion from 'double' to 'const float', possible loss of data
+c:\users\jaimemtrillos\documents\proceduralmodelingproject\finalproject\modeler.cpp(352): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   FinalProject.cpp
   common.cpp
   Generating Code...
-c:\users\jaimemtrillos\google drive\uni-bonn\labgraphics\labgraphics2017\proceduralmodelingproject\finalproject\parser.cpp(75): warning C4715: 'parser::stringToType': not all control paths return a value
-  FinalProject.vcxproj -> C:\Users\JaimeMTrillos\Google Drive\Uni-Bonn\LabGraphics\LabGraphics2017\ProceduralModelingProject\x64\Debug\FinalProject.exe
+c:\users\jaimemtrillos\documents\proceduralmodelingproject\finalproject\modeler.cpp(105): warning C4715: 'modeler::stringToType': not all control paths return a value
+  FinalProject.vcxproj -> C:\Users\JaimeMTrillos\Documents\ProceduralModelingProject\x64\Debug\FinalProject.exe

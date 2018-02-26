@@ -3,7 +3,7 @@ main=S(180,180,180) Subdiv(0,180){house}
 house=Comp(sides){wall1,wall2,wall3,ground}
 #wall1
 wall1=Subdiv(1,45,90,45){wallpaper,wallMiddle1,wallpaper}:0.6
-wall1=Subdiv(1,60){wallpaper}:0.4
+wall1=Subdiv(1,180){wallpaper}:0.4
 wallpaper=I(plain){wall}
 wallMiddle1=Subdiv(2,30,50,20,50,30){wallpaper,window,wallpaper,window,wallpaper}
 window=I(plain){window}
@@ -22,7 +22,7 @@ ground=Subdiv(0,30,30,10,40,10,30,30){floor,f1,floor,f2,floor,f3,floor}
 floor=I(plain){floor}
 f1=Subdiv(2,90,30,30,30){floor,chair,floor,cabinet}
 chair=S3d(1,20) I(armchair){armchair}
-cabinet=S3d(1,100) I(cabinet){cabinet}
+cabinet=S3d(1,100) I(cabinet){wood}
 f2=Subdiv(2,50,30,10,30,60){floor,sofa,floor,table,floor}
 sofa=S3d(1,15) I(sofa){sofa}
 table=S3d(1,15) I(table){table}
