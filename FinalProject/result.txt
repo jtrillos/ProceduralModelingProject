@@ -1,70 +1,72 @@
+This is the tree:
+
 Name: main
-Position: (0, 0, 0)
-Size: (18, 18, 18)
+Position: <0, 0, 0>
+Size: <18, 18, 18>
 Texture: 
-Type: 3
+Type: 1
 Children: [ house ]
 
 Name: house
-Position: (0, 0, 0)
-Size: (18, 18, 18)
+Position: <0, 0, 0>
+Size: <18, 18, 18>
 Texture: 
-Type: 3
+Type: 1
 Children: [ wall1 wall2 wall3 ground ]
 
 Name: wall1
-Position: (18, 0, 0)
-Size: (0, 18, 18)
+Position: <18, 0, 0>
+Size: <0, 18, 18>
 Texture: 
-Type: 3
-Children: [ wallpaper ]
+Type: 1
+Children: [ wallpaper1 ]
 
 Name: wall2
-Position: (0, 0, 18)
-Size: (18, 18, 0)
+Position: <0, 0, 18>
+Size: <18, 18, 0>
 Texture: 
-Type: 3
-Children: [ wallpaper ]
+Type: 1
+Children: [ wallpaper2 ]
 
 Name: wall3
-Position: (0, 0, 0)
-Size: (0, 18, 18)
+Position: <0, 0, 0>
+Size: <0, 18, 18>
 Texture: 
-Type: 3
-Children: [ wallpaper ]
+Type: 1
+Children: [ wallpaper3 ]
 
 Name: ground
-Position: (0, 0, 0)
-Size: (18, 0, 18)
+Position: <0, 0, 0>
+Size: <18, 0, 18>
 Texture: 
-Type: 3
-Children: [ wallpaper ]
-
-Name: wallpaper
-Position: (18, 0, 0)
-Size: (0, 18, 18)
-Texture: wall
 Type: 1
+Children: [ floor ]
+
+Name: wallpaper1
+Position: <18, 0, 0>
+Size: <0, 18, 18>
+Texture: wall1
+Type: 2
 Children: [ ]
 
-Name: wallpaper
-Position: (0, 0, 18)
-Size: (18, 18, 0)
-Texture: wall
-Type: 1
+Name: wallpaper2
+Position: <0, 0, 18>
+Size: <18, 18, 0>
+Texture: wall2
+Type: 2
 Children: [ ]
 
-Name: wallpaper
-Position: (0, 0, 0)
-Size: (0, 18, 18)
-Texture: wall
-Type: 1
+Name: wallpaper3
+Position: <0, 0, 0>
+Size: <0, 18, 18>
+Texture: wall3
+Type: 2
 Children: [ ]
 
-Name: wallpaper
-Position: (0, 0, 0)
-Size: (18, 0, 18)
-Texture: wall
-Type: 1
+Name: floor
+Position: <0, 0, 0>
+Size: <18, 0, 18>
+Texture: floor
+Type: 2
 Children: [ ]
 

@@ -2,8 +2,11 @@ main=S(18,18,18) Subdiv(0,18){house}
 #house
 house=Comp(sides){wall1,wall2,wall3,ground}
 #wall1
-wall1=Subdiv(1,18){wallpaper}
-wall2=Subdiv(1,18){wallpaper}
-wall3=Subdiv(1,18){wallpaper}
-ground=Subdiv(0,18){wallpaper}
-wallpaper=I(cube){wall}
+wall1=Subdiv(1,18){wallpaper1}
+wall2=Subdiv(1,18){wallpaper2}
+wall3=Subdiv(1,18){wallpaper3}
+ground=Subdiv(0,18){floor}
+wallpaper1=I(plain){wall1}
+wallpaper2=I(plain){wall2}
+wallpaper3=I(plain){wall3}
+floor=I(plain){floor}

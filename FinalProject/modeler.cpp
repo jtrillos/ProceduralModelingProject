@@ -204,16 +204,16 @@ vector<modeler*> modeler::printTree(modeler* data) {
 	list.push_back(data); // Copy the data in the temporal list
 	vector<modeler*> tree; // Output the tree in a vector<modeler>
 	ofstream cout("result.txt"); // And output in a file .txt
+	cout << "This is the tree:" << endl << endl;
 	while (list.size()) {
 		modeler* item = list[0];
 		list.erase(list.begin());
 		tree.push_back(item);
-
 		cout << "Name: " << item->getName() << endl;
 		vector3d& position = item->getSymbolPosition();
-		cout << "Position: (" << position.getX() << ", " << position.getY() << ", " << position.getZ() << ")" << endl;
+		cout << "Position: <" << position.getX() << ", " << position.getY() << ", " << position.getZ() << ">" << endl;
 		vector3d& size = item->getSize();
-		cout << "Size: (" << size.getX() << ", " << size.getY() << ", " << size.getZ() << ")" << endl;
+		cout << "Size: <" << size.getX() << ", " << size.getY() << ", " << size.getZ() << ">" << endl;
 		cout << "Texture: " << item->getTexture() << endl;
 		cout << "Type: " << item->getType() << endl;
 		cout << "Children: [ ";

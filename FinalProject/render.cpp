@@ -8,7 +8,7 @@ const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
 // camera
-Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+Camera camera(glm::vec3(10.0f, 10.0f, 60.0f));
 
 // array containing the pressed keys on the keyboard
 // use this to pass the current state of pressed keys to the camera to enable movement
@@ -42,12 +42,12 @@ bool render::rendering(vector<modeler*> tree) {
 		return -1;
 	}
 
-	std::cout << "--- USAGE ---\n" << std::endl;
-	std::cout << "Navigation." << std::endl;
+	std::cout << "HOW TO USE IT: \n" << std::endl;
+	std::cout << "- Navigation." << std::endl;
 	std::cout << "	Arrow keys." << std::endl;
 	std::cout << "	(W, A, S, D) keys." << std::endl;
 	std::cout << "	Mouse." << std::endl;
-	std::cout << "Press ESC to close application." << std::endl;
+	std::cout << "- Press ESC to close application." << std::endl;
 
 	glfwMakeContextCurrent(window);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
@@ -76,8 +76,8 @@ bool render::rendering(vector<modeler*> tree) {
 
 	// load models
 	/*Object ourObject("resources/objects/plain/plain.obj");
-	TextureFromFile("wall.bmp", "resources/textures", false);*/
-
+	TextureFromFile("rug.bmp", "resources/textures", false);
+	*/
 	// draw in wireframe
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
@@ -104,21 +104,21 @@ bool render::rendering(vector<modeler*> tree) {
 		ourShader.use();
 
 		// view/projection transformations
-		//glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-		glm::mat4 projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
+		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 		glm::mat4 view = camera.GetViewMatrix();
 		ourShader.setMat4("projection", projection);
 		ourShader.setMat4("view", view);
 
-		drawTree(ourShader);
-
 		// render the loaded model
+		drawTree(ourShader);
+		
 		/*glm::mat4 model;
-		model = glm::translate(model, glm::vec3(18, 0, 0)); // translate it down so it's at the center of the scene
-		model = glm::scale(model, glm::vec3(0, 18, 18));	// it's a bit too big for our scene, so scale it down
+		model = glm::translate(model, glm::vec3(0, 0, 18)); // translate it down so it's at the center of the scene
+		model = glm::scale(model, glm::vec3(18, 18, 0));	// it's a bit too big for our scene, so scale it down
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		ourShader.setMat4("model", model);
-		ourObject.Draw(ourShader);*/
-
+		ourObject.Draw(ourShader);
+		*/
 		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
 		// -------------------------------------------------------------------------------
 		glfwSwapBuffers(window);
@@ -209,7 +209,7 @@ void render::drawTree(Shader ourShader) {
 			drawCylinder(position, size, ourShader, mod->getTexture() + ".bmp");
 			break;
 		case PLAIN:
-			drawPlain(position, size, ourShader, mod->getTexture() + ".bmp");
+			drawCube(position, size, ourShader, mod->getTexture() + ".bmp");
 			break;
 		case SOFA:
 			drawSofa(position, size, ourShader, mod->getTexture() + ".bmp");
