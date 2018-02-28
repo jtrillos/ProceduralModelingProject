@@ -2,18 +2,17 @@ main=S(20,20,20) Subdiv(0,20){house}
 #house
 house=Comp(sides){wall1,wall2,wall3,ground}
 #wall1
-wall1=Subdiv(1,5,10,5){wallpaper,wallMiddle1,wallpaper}:0.6
-wall1=Subdiv(1,20){wallpaper}:0.4
+wall1=Subdiv(1,5,10,5){wallpaper,wallMiddle1,wallpaper}
 wallpaper=I(plain){wall}
 wallMiddle1=Subdiv(2,4,5,2,5,4){wallpaper,window,wallpaper,window,wallpaper}
 window=I(plain){window}
 #wall2
 wall2=Subdiv(0,6,8,6){wallpaper,wallMiddle2,wallpaper}
-wallMiddle2=Subdiv(1,9,40,60){wallpaper,tv,wallpaper}
+wallMiddle2=Subdiv(1,9,5,6){wallpaper,tv,wallpaper}
 tv=I(plain){tv}
 #wall3
-wall3=Subdiv(2,4,1,6,4,5){wallpaper,walldoor,wall,wallMiddle3,wallpaper}
-walldoor=Subdiv(1,14,6){wallpaper,door}
+wall3=Subdiv(2,4,4,4,4,4){wallpaper,walldoor,wallpaper,wallMiddle3,wallpaper}
+walldoor=Subdiv(1,12,8){door,wallpaper}
 door=I(plain){door}
 wallMiddle3=Subdiv(1,6,5,9){wallpaper,picture,wallpaper}
 picture=I(plain){picture}
@@ -21,11 +20,11 @@ picture=I(plain){picture}
 ground=Subdiv(0,3,3,2,4,2,3,3){floor,f1,floor,f2,floor,f3,floor}
 floor=I(plain){floor}
 f1=Subdiv(2,11,3,3,3){floor,chair,floor,cabinet}
-chair=S3d(1,6) I(chair){armchair}
-cabinet=S3d(1,8) I(cabinet){wood}
+chair=S3d(1,6) I(cube){armchair}
+cabinet=S3d(1,8) I(cube){wood}
 f2=Subdiv(2,6,3,2,3,6){floor,sofa,floor,table,floor}
-sofa=S3d(1,6) I(sofa){sofa}
-table=S3d(1,2) I(table){table}
+sofa=S3d(1,6) I(cube){sofa}
+table=S3d(1,2) I(cube){table}
 f3=Subdiv(2,11,3,6){floor,chair1,floor}
-chair1=S3d(1,6) R(0,180,0) I(chair){armchair}:0.6
-chair1=S3d(1,6) R(0,180,0) I(toy){rug}:0.4
+chair1=S3d(1,6) I(cube){armchair}:0.6
+chair1=S3d(1,6) I(cube){rug}:0.4
