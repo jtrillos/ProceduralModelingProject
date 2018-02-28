@@ -8,7 +8,7 @@ const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
 // camera
-Camera camera(glm::vec3(10.0f, 10.0f, 60.0f));
+Camera camera(glm::vec3(10.0f, 35.0f, -15.0f));
 
 // array containing the pressed keys on the keyboard
 // use this to pass the current state of pressed keys to the camera to enable movement

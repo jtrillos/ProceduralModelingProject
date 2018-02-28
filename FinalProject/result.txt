@@ -248,7 +248,7 @@ Children: [ ]
 Name: picture
 Position: <0, 6, 12>
 Size: <0, 5, 4>
-Texture: picture
+Texture: awesomeface
 Type: 2
 Children: [ ]
 
@@ -268,7 +268,7 @@ Children: [ ]
 
 Name: chair
 Position: <3, 0, 11>
-Size: <3, 6, 3>
+Size: <3, 4, 3>
 Texture: armchair
 Type: 3
 Children: [ ]
@@ -296,7 +296,7 @@ Children: [ ]
 
 Name: sofa
 Position: <8, 0, 6>
-Size: <4, 6, 3>
+Size: <4, 4, 3>
 Texture: sofa
 Type: 3
 Children: [ ]
@@ -331,8 +331,8 @@ Children: [ ]
 
 Name: chair1
 Position: <14, 0, 11>
-Size: <3, 6, 3>
-Texture: rug
+Size: <3, 4, 3>
+Texture: armchair
 Type: 3
 Children: [ ]
 

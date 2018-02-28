@@ -1,1 +1,3 @@
 All objects where taken from https://www.all3dfree.net
+
+Some where modified in order to use it.

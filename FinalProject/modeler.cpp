@@ -150,12 +150,6 @@ modeler* modeler::ruleToModel(vector<rule> r) {
 					currentmodel->setTexture(texture);
 					currentmodel->setType(type);
 				}
-				else if (startsWith(keys[i], "Repeat")) { // Splitting scope into the same objects
-					vector<float> args = parseArguments(keys[i], currentmodel);
-					string newmodelerName = parseParameters(keys[i])[0];
-					int axis = round(args[0]);
-					currentmodel->repeat(axis, round(args[1]), newmodelerName, currentmodel);
-				}
 				else if (startsWith(keys[i], "R")) { // Rotating around axis
 					vector<float> args = parseArguments(keys[i], currentmodel);
 					currentmodel->rotate(vector3d(args[0], args[1], args[2]));
@@ -181,19 +175,14 @@ vector<float> modeler::parseArguments(string token, modeler* parent) {
 	vector<string> args = splitString(splitString(token, '(', ')')[1], ',', ',');
 	vector<float> vec;
 	for (int k = 0; k < args.size(); k++) {
-		if (startsWith(args[k], "rnd")) { 
-			vector<string> rArgs = splitString(splitString(args[k], '<', '>')[1], '-', '-');
-			vec.push_back(stof(rArgs[0]));
-			vec.push_back(stof(rArgs[1]));
-		}
-		else if (startsWith(args[k], "r")) { // The arguments contain a float variable between 0 to 1 
+		if (startsWith(args[k], "r")) { // The arguments contain a float variable between 0 to 1 
 			int axis = vec[0];
 			string number = args[k].substr(1, args[k].length());
 			float size = parent->getSize().getElement(axis);;
 			vec.push_back(stof(number)*size);
 		}
 		else {
-			double value = stof(args[k]);
+			float value = stof(args[k]);
 			vec.push_back(value);
 		}
 	}
@@ -320,23 +309,6 @@ void modeler::comp(string type, vector<string> newModelNames, modeler* parent) {
 			parent->children.push_back(modelFront);
 			list.push_back(modelFront);
 		}
-	}
-}
-
-void modeler::repeat(int axis, int times, string newModelsName, modeler* parent) {
-	float ratio = parent->size.getElement(axis) / times;
-	vector3d newPosition = parent->symbolPosition.copyVector();
-	vector3d newSize = parent->size.copyVector();
-	float initPosition = parent->symbolPosition.getElement(axis);
-	for (int i = 0; i<times; i++) {
-		newPosition.setElement(axis, initPosition + i * ratio);
-		newSize.setElement(axis, ratio);
-		modeler* newModel = new modeler(newModelsName);
-		newModel->setSymbolPosition(newPosition);
-		newModel->setSize(newSize);
-		newModel->setType(parent->type);
-		parent->children.push_back(newModel);
-		list.push_back(newModel);
 	}
 }
 

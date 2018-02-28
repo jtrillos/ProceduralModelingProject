@@ -56,7 +56,6 @@ public:
 	modeler &translate(vector3d translation); // Translation vector
 	void subDiv(int axis, vector<float> ratios, vector<string> newmodelerNames, modeler* parent); // Splits the current scope along one specific axis
 	void comp(string type, vector<string> newmodelerNames, modeler* parent); // Splits the modeler into modelers of lesser dimensions
-	void repeat(int axis, int times, string newmodelersName, modeler* parent); // Allow for larger scale changes in the split rules, we often want to tile a specified element.
 	modeler &rotate(vector3d angles); // Rotation 
 	vector3d rotate_axis(vector3d &position, float degrees, int axe);
 };
