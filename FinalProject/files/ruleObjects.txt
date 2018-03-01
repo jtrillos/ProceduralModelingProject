@@ -28,5 +28,5 @@ f2=Subdiv(2,6,3,2,3,6){floor,sofa,floor,table,floor}
 sofa=S3d(1,4) T(6,0,0) I(sofa){sofa}
 table=S3d(1,2) T(3,0,0) I(table){table}
 f3=Subdiv(2,11,3,6){floor,chair1,floor}
-chair1=S3d(1,4) I(chair){armchair}:0.6
+chair1=S3d(1,4) T(4,0,0) R(90,0,0) I(chair){armchair}:0.6
 chair1=S3d(1,6) I(toy){rug}:0.4

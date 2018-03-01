@@ -270,7 +270,7 @@ Name: chair
 Position: <3, 0, 11>
 Size: <3, 4, 3>
 Texture: armchair
-Type: 3
+Type: 8
 Children: [ ]
 
 Name: floor
@@ -281,10 +281,10 @@ Type: 2
 Children: [ ]
 
 Name: cabinet
-Position: <3, 0, 17>
+Position: <5.5, 0, 17>
 Size: <3, 8, 3>
 Texture: wood
-Type: 3
+Type: 7
 Children: [ ]
 
 Name: floor
@@ -295,10 +295,10 @@ Type: 2
 Children: [ ]
 
 Name: sofa
-Position: <8, 0, 6>
+Position: <14, 0, 6>
 Size: <4, 4, 3>
 Texture: sofa
-Type: 3
+Type: 5
 Children: [ ]
 
 Name: floor
@@ -309,10 +309,10 @@ Type: 2
 Children: [ ]
 
 Name: table
-Position: <8, 0, 11>
+Position: <11, 0, 11>
 Size: <4, 2, 3>
 Texture: table
-Type: 3
+Type: 6
 Children: [ ]
 
 Name: floor
@@ -330,10 +330,10 @@ Type: 2
 Children: [ ]
 
 Name: chair1
-Position: <14, 0, 11>
-Size: <3, 4, 3>
+Position: <18, 0, 11>
+Size: <-4, 3, 3>
 Texture: armchair
-Type: 3
+Type: 8
 Children: [ ]
 
 Name: floor

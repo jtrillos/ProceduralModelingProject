@@ -192,7 +192,7 @@ vector<float> modeler::parseArguments(string token, modeler* parent) {
 vector<modeler*> modeler::printTree(modeler* data) {
 	list.push_back(data); // Copy the data in the temporal list
 	vector<modeler*> tree; // Output the tree in a vector<modeler>
-	ofstream cout("result.txt"); // And output in a file .txt
+	ofstream cout("files/result.txt"); // And output in a file .txt
 	cout << "This is the tree:" << endl << endl;
 	while (list.size()) {
 		modeler* item = list[0];
