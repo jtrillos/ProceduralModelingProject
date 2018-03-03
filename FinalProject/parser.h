@@ -9,7 +9,8 @@
 #include <algorithm> 
 #include <string>
 #include <ctime>
-#include "modeler.h"
+#include <fstream>
+#include "common.h"
 
 using namespace std;
 
