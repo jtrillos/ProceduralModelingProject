@@ -89,8 +89,8 @@ TypeObject modeler::stringToType(string str) {
 		return CYLINDER;
 	else if (!str.compare("scope"))
 		return SCOPE;
-	else if (!str.compare("plain"))
-		return PLAIN;
+	else if (!str.compare("plane"))
+		return PLANE;
 	else if (!str.compare("sofa"))
 		return SOFA;
 	else if (!str.compare("table"))
@@ -139,7 +139,7 @@ modeler* modeler::ruleToModel(vector<rule> r) {
 					vector<float> args = parseArguments(keys[i], currentmodel);
 					currentmodel->setSize(vector3d(args[0], args[1], args[2]));
 				}
-				else if (startsWith(keys[i], "Comp")) { // Split scope into plains
+				else if (startsWith(keys[i], "Comp")) { // Split scope into planes
 					string type = splitString(keys[i], '(', ')')[1];
 					vector<string> parameters = parseParameters(keys[i]);
 					currentmodel->comp(type, parameters, currentmodel);

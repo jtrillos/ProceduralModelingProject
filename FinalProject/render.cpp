@@ -74,13 +74,6 @@ bool render::rendering(vector<modeler*> tree) {
 	// -------------------------
 	Shader ourShader("shaders/vertex_shader.glsl", "shaders/fragment_shader.glsl");
 
-	// load models
-	/*Object ourObject("resources/objects/plain/plain.obj");
-	TextureFromFile("rug.bmp", "resources/textures", false);
-	*/
-	// draw in wireframe
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
 	// render loop
 	// -----------
 	while (!glfwWindowShouldClose(window))
@@ -112,13 +105,6 @@ bool render::rendering(vector<modeler*> tree) {
 		// render the loaded model
 		drawTree(ourShader);
 		
-		/*glm::mat4 model;
-		model = glm::translate(model, glm::vec3(0, 0, 18)); // translate it down so it's at the center of the scene
-		model = glm::scale(model, glm::vec3(18, 18, 0));	// it's a bit too big for our scene, so scale it down
-		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		ourShader.setMat4("model", model);
-		ourObject.Draw(ourShader);
-		*/
 		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
 		// -------------------------------------------------------------------------------
 		glfwSwapBuffers(window);
@@ -208,7 +194,7 @@ void render::drawTree(Shader ourShader) {
 		case CYLINDER:
 			drawCylinder(position, size, ourShader, mod->getTexture() + ".bmp");
 			break;
-		case PLAIN:
+		case PLANE:
 			drawCube(position, size, ourShader, mod->getTexture() + ".bmp");
 			break;
 		case SOFA:
@@ -230,9 +216,9 @@ void render::drawTree(Shader ourShader) {
 	}
 }
 
-void render::drawPlain(vector3d& position, vector3d& size, Shader ourShader, string texture) {
+void render::drawPlane(vector3d& position, vector3d& size, Shader ourShader, string texture) {
 	const char * c = texture.c_str();
-	Object ourObject("resources/objects/plain/plain.obj");
+	Object ourObject("resources/objects/plane/plane.obj");
 	TextureFromFile(c, "resources/textures", false);
 
 	glm::mat4 model;

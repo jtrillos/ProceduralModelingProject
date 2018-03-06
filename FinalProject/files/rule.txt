@@ -4,23 +4,23 @@ house=Comp(sides){wall1,wall2,wall3,ground}
 #wall1
 wall1=Subdiv(1,5,10,5){wallpaper,wallMiddle1,wallpaper}:0.6
 wall1=Subdiv(1,20){wallpaper}:0.4
-wallpaper=I(plain){wall}
+wallpaper=I(plane){wall}
 wallMiddle1=Subdiv(2,4,5,2,5,4){wallpaper,window,wallpaper,window,wallpaper}
-window=I(plain){window}
+window=I(plane){window}
 #wall2
 wall2=Subdiv(0,6,8,6){wallpaper,wallMiddle2,wallpaper}
 wallMiddle2=Subdiv(1,9,5,6){wallpaper,tv,wallpaper}
-tv=I(plain){tv}
+tv=I(plane){tv}
 #wall3
 wall3=Subdiv(2,4,4,4,4,4){wallpaper,walldoor,wallpaper,wallMiddle3,wallpaper}
 walldoor=Subdiv(1,12,8){door,wallpaper}
-door=I(plain){door}
+door=I(plane){door}
 wallMiddle3=Subdiv(1,6,5,9){wallpaper,picture,wallpaper}
-picture=I(plain){picture}:0.6
-picture=I(plain){awesomeface}:0.4
+picture=I(plane){picture}:0.6
+picture=I(plane){awesomeface}:0.4
 #ground
 ground=Subdiv(0,3,3,2,4,2,3,3){floor,f1,floor,f2,floor,f3,floor}
-floor=I(plain){floor}
+floor=I(plane){floor}
 f1=Subdiv(2,11,3,3,3){floor,chair,floor,cabinet}
 chair=S3d(1,4) I(cube){armchair}
 cabinet=S3d(1,8) I(cube){wood}
