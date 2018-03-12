@@ -70,9 +70,18 @@ bool render::rendering(vector<modeler*> tree) {
 	// -----------------------------
 	glEnable(GL_DEPTH_TEST);
 
-	// build and compile shaders
+	// build and compile shaders, objects and textures
 	// -------------------------
 	Shader ourShader("shaders/vertex_shader.glsl", "shaders/fragment_shader.glsl");
+	Object planeObject("resources/objects/plane/plane.obj");
+	Object cubeObject("resources/objects/cube/cube.obj");
+	Object cylinderObject("resources/objects/cylinder/cylinder.obj");
+	Object sofaObject("resources/objects/sofa/sofa.obj");
+	Object tableObject("resources/objects/table/table.obj");
+	Object cabinetObject("resources/objects/cabinet/cabinet.obj");
+	Object chairObject("resources/objects/armchair/armchair.obj");
+	Object toyObject("resources/objects/toy/toy.obj");
+	map<string, unsigned int> textures = compileTextures();
 
 	// render loop
 	// -----------
@@ -102,8 +111,42 @@ bool render::rendering(vector<modeler*> tree) {
 		ourShader.setMat4("projection", projection);
 		ourShader.setMat4("view", view);
 
-		// render the loaded model
-		drawTree(ourShader);
+		// render the loaded models
+		for (int i = 0; i < dataTree.size(); i++) {
+			modeler* mod = dataTree[i];
+			vector3d& position = mod->getSymbolPosition();
+			vector3d& size = mod->getSize();
+			unsigned int tex;
+			if (textures.find(mod->getTexture()) != textures.end()) {
+				tex = textures.at(mod->getTexture());
+			}
+			switch (mod->getType()) {
+			case CUBE:
+				drawCube(position, size, ourShader, cubeObject, tex);
+				break;
+			case CYLINDER:
+				drawCylinder(position, size, ourShader, cylinderObject, tex);
+				break;
+			case PLANE:
+				drawCube(position, size, ourShader, cubeObject, tex);
+				break;
+			case SOFA:
+				drawSofa(position, size, ourShader, sofaObject, tex);
+				break;
+			case TABLE:
+				drawTable(position, size, ourShader, tableObject, tex);
+				break;
+			case CABINET:
+				drawCabinet(position, size, ourShader, cabinetObject, tex);
+				break;
+			case CHAIR:
+				drawChair(position, size, ourShader, chairObject, tex);
+				break;
+			case TOY:
+				drawToy(position, size, ourShader, toyObject, tex);
+				break;
+			}
+		}
 		
 		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
 		// -------------------------------------------------------------------------------
@@ -182,132 +225,96 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		keys[key] = false;
 }
 
-void render::drawTree(Shader ourShader) {
-	for (int i = 0; i < dataTree.size(); i++) {
-		modeler* mod = dataTree[i];
-		vector3d& position = mod->getSymbolPosition();
-		vector3d& size = mod->getSize();
-		switch (mod->getType()) {
-		case CUBE:
-			drawCube(position, size,ourShader, mod->getTexture()+".bmp");
-			break;
-		case CYLINDER:
-			drawCylinder(position, size, ourShader, mod->getTexture() + ".bmp");
-			break;
-		case PLANE:
-			drawCube(position, size, ourShader, mod->getTexture() + ".bmp");
-			break;
-		case SOFA:
-			drawSofa(position, size, ourShader, mod->getTexture() + ".bmp");
-			break;
-		case TABLE:
-			drawTable(position, size, ourShader, mod->getTexture() + ".bmp");
-			break;
-		case CABINET:
-			drawCabinet(position, size, ourShader, mod->getTexture() + ".bmp");
-			break;
-		case CHAIR:
-			drawChair(position, size, ourShader, mod->getTexture() + ".bmp");
-			break;
-		case TOY:
-			drawToy(position, size, ourShader, mod->getTexture() + ".bmp");
-			break;
-		}
-	}
-}
-
-void render::drawPlane(vector3d& position, vector3d& size, Shader ourShader, string texture) {
-	const char * c = texture.c_str();
-	Object ourObject("resources/objects/plane/plane.obj");
-	TextureFromFile(c, "resources/textures", false);
-
+void render::drawPlane(vector3d& position, vector3d& size, Shader ourShader, Object planeObject, unsigned int texture) {
+	glBindTexture(GL_TEXTURE_2D, texture);
 	glm::mat4 model;
 	model = glm::translate(model, glm::vec3(position.getX(), position.getY(), position.getZ())); // translate it down so it's at the center of the scene
 	model = glm::scale(model, glm::vec3(size.getX(), size.getY(), size.getZ()));	// it's a bit too big for our scene, so scale it down
 	ourShader.setMat4("model", model);
-	ourObject.Draw(ourShader);
+	planeObject.Draw(ourShader);
 }
 
-void render::drawCube(vector3d& position, vector3d& size, Shader ourShader, string texture) {
-	const char * c = texture.c_str();
-	Object ourObject("resources/objects/cube/cube.obj");
-	TextureFromFile(c, "resources/textures", false);
-
+void render::drawCube(vector3d& position, vector3d& size, Shader ourShader, Object cubeObject, unsigned int texture) {
+	glBindTexture(GL_TEXTURE_2D, texture);
 	glm::mat4 model;
 	model = glm::translate(model, glm::vec3(position.getX(), position.getY(), position.getZ())); // translate it down so it's at the center of the scene
 	model = glm::scale(model, glm::vec3(size.getX(), size.getY(), size.getZ()));	// it's a bit too big for our scene, so scale it down
 	ourShader.setMat4("model", model);
-	ourObject.Draw(ourShader);
+	cubeObject.Draw(ourShader);
 }
 
-void render::drawCylinder(vector3d& position, vector3d& size, Shader ourShader, string texture) {
-	const char * c = texture.c_str();
-	Object ourObject("resources/objects/cylinder/cylinder.obj");
-	TextureFromFile(c, "resources/textures", false);
-
+void render::drawCylinder(vector3d& position, vector3d& size, Shader ourShader, Object cylinderObject, unsigned int texture) {
+	glBindTexture(GL_TEXTURE_2D, texture);
 	glm::mat4 model;
 	model = glm::translate(model, glm::vec3(position.getX(), position.getY(), position.getZ())); // translate it down so it's at the center of the scene
 	model = glm::scale(model, glm::vec3(size.getX(), size.getY(), size.getZ()));	// it's a bit too big for our scene, so scale it down
 	ourShader.setMat4("model", model);
-	ourObject.Draw(ourShader);
+	cylinderObject.Draw(ourShader);
 }
 
-void render::drawSofa(vector3d& position, vector3d& size, Shader ourShader, string texture) {
-	const char * c = texture.c_str();
-	Object ourObject("resources/objects/sofa/sofa.obj");
-	TextureFromFile(c, "resources/textures", false);
-
+void render::drawSofa(vector3d& position, vector3d& size, Shader ourShader, Object sofaObject, unsigned int texture) {
+	glBindTexture(GL_TEXTURE_2D, texture);
 	glm::mat4 model;
 	model = glm::translate(model, glm::vec3(position.getX(), position.getY(), position.getZ())); // translate it down so it's at the center of the scene
 	model = glm::scale(model, glm::vec3(size.getX(), size.getY(), size.getZ()));	// it's a bit too big for our scene, so scale it down
 	ourShader.setMat4("model", model);
-	ourObject.Draw(ourShader);
+	sofaObject.Draw(ourShader);
 }
 
-void render::drawTable(vector3d& position, vector3d& size, Shader ourShader, string texture) {
-	const char * c = texture.c_str();
-	Object ourObject("resources/objects/table/table.obj");
-	TextureFromFile(c, "resources/textures", false);
-
+void render::drawTable(vector3d& position, vector3d& size, Shader ourShader, Object tableObject, unsigned int texture) {
+	glBindTexture(GL_TEXTURE_2D, texture);
 	glm::mat4 model;
 	model = glm::translate(model, glm::vec3(position.getX(), position.getY(), position.getZ())); // translate it down so it's at the center of the scene
 	model = glm::scale(model, glm::vec3(size.getX(), size.getY(), size.getZ()));	// it's a bit too big for our scene, so scale it down
 	ourShader.setMat4("model", model);
-	ourObject.Draw(ourShader);
+	tableObject.Draw(ourShader);
 }
 
-void render::drawCabinet(vector3d& position, vector3d& size, Shader ourShader, string texture) {
-	const char * c = texture.c_str();
-	Object ourObject("resources/objects/cabinet/cabinet.obj");
-	TextureFromFile(c, "resources/textures", false);
-
+void render::drawCabinet(vector3d& position, vector3d& size, Shader ourShader, Object cabinetObject, unsigned int texture) {
+	glBindTexture(GL_TEXTURE_2D, texture);
 	glm::mat4 model;
 	model = glm::translate(model, glm::vec3(position.getX(), position.getY(), position.getZ())); // translate it down so it's at the center of the scene
 	model = glm::scale(model, glm::vec3(size.getX(), size.getY(), size.getZ()));	// it's a bit too big for our scene, so scale it down
 	ourShader.setMat4("model", model);
-	ourObject.Draw(ourShader);
+	cabinetObject.Draw(ourShader);
 }
 
-void render::drawChair(vector3d& position, vector3d& size, Shader ourShader, string texture) {
-	const char * c = texture.c_str();
-	Object ourObject("resources/objects/armchair/armchair.obj");
-	TextureFromFile(c, "resources/textures", false);
-
+void render::drawChair(vector3d& position, vector3d& size, Shader ourShader, Object chairObject, unsigned int texture) {
+	glBindTexture(GL_TEXTURE_2D, texture);
 	glm::mat4 model;
 	model = glm::translate(model, glm::vec3(position.getX(), position.getY(), position.getZ())); // translate it down so it's at the center of the scene
 	model = glm::scale(model, glm::vec3(size.getX(), size.getY(), size.getZ()));	// it's a bit too big for our scene, so scale it down
 	ourShader.setMat4("model", model);
-	ourObject.Draw(ourShader);
+	chairObject.Draw(ourShader);
 }
 
-void render::drawToy(vector3d& position, vector3d& size, Shader ourShader, string texture) {
-	const char * c = texture.c_str();
-	Object ourObject("resources/objects/toy/toy.obj");
-	TextureFromFile(c, "resources/textures", false);
-
+void render::drawToy(vector3d& position, vector3d& size, Shader ourShader, Object toyObject, unsigned int texture) {
+	glBindTexture(GL_TEXTURE_2D, texture);
 	glm::mat4 model;
 	model = glm::translate(model, glm::vec3(position.getX(), position.getY(), position.getZ())); // translate it down so it's at the center of the scene
 	model = glm::scale(model, glm::vec3(size.getX(), size.getY(), size.getZ()));	// it's a bit too big for our scene, so scale it down
 	ourShader.setMat4("model", model);
-	ourObject.Draw(ourShader);
+	toyObject.Draw(ourShader);
+}
+
+// load and create textures
+map<string, unsigned int> render::compileTextures() {
+	map<string, unsigned int> textures;
+	textures.insert(std::pair<string, unsigned int>("armchair", TextureFromFile("armchair.bmp", "resources/textures", false)));
+	textures.insert(std::pair<string, unsigned int>("awesomeface", TextureFromFile("awesomeface.bmp", "resources/textures", false)));
+	textures.insert(std::pair<string, unsigned int>("door", TextureFromFile("door.bmp", "resources/textures", false)));
+	textures.insert(std::pair<string, unsigned int>("floor", TextureFromFile("floor.bmp", "resources/textures", false)));
+	textures.insert(std::pair<string, unsigned int>("metal", TextureFromFile("metal.bmp", "resources/textures", false)));
+	textures.insert(std::pair<string, unsigned int>("picture", TextureFromFile("picture.bmp", "resources/textures", false)));
+	textures.insert(std::pair<string, unsigned int>("rug", TextureFromFile("rug.bmp", "resources/textures", false)));
+	textures.insert(std::pair<string, unsigned int>("sofa", TextureFromFile("sofa.bmp", "resources/textures", false)));
+	textures.insert(std::pair<string, unsigned int>("table", TextureFromFile("table.bmp", "resources/textures", false)));
+	textures.insert(std::pair<string, unsigned int>("tv", TextureFromFile("tv.bmp", "resources/textures", false)));
+	textures.insert(std::pair<string, unsigned int>("wall", TextureFromFile("wall.bmp", "resources/textures", false)));
+	textures.insert(std::pair<string, unsigned int>("wall1", TextureFromFile("wall1.bmp", "resources/textures", false)));
+	textures.insert(std::pair<string, unsigned int>("wall2", TextureFromFile("wall2.bmp", "resources/textures", false)));
+	textures.insert(std::pair<string, unsigned int>("wall3", TextureFromFile("wall3.bmp", "resources/textures", false)));
+	textures.insert(std::pair<string, unsigned int>("window", TextureFromFile("window.bmp", "resources/textures", false)));
+	textures.insert(std::pair<string, unsigned int>("wood", TextureFromFile("wood.bmp", "resources/textures", false)));
+	return textures;
 }

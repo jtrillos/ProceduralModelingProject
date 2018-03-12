@@ -87,15 +87,22 @@ double parser::createRandom() {
 
 // Return the winner rules
 rule parser::searchClosest(vector<rule> vec, double key){
-	double value = abs(key - vec[0].probability);
-	rule num = vec[0];
-	for (int i = 0; i < vec.size(); i++){
-		if (value > abs(key - vec[i].probability)){
-			value = abs(key - vec[i].probability);
-			num = vec[i];
+	vector<double> vecTemp; // Contain the probabilities starting in 0
+	rule winner;
+	vecTemp.resize(vec.size() + 1);
+	vecTemp[0] = 0.0;
+	vecTemp[1] = vec[0].probability;
+	for (int i = 1; i < vec.size(); i++) {
+		vecTemp[i + 1] = vec[i].probability + vecTemp[i];
+	}
+	// Compare the interval with the key and return the winner
+	for (int i = 0; i < vecTemp.size(); i++) {
+		if (vecTemp[i] <= key && vecTemp[i + 1] > key) {
+			winner = vec[i];
+			break;
 		}
 	}
-	return num;
+	return winner;
 }
 
 // Delete the losers rules

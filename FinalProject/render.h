@@ -27,15 +27,15 @@ class render
 {
 public:
 	bool rendering(vector<modeler*> tree);
-	void drawTree(Shader ourShader);
-	void drawPlane(vector3d& position, vector3d& size, Shader ourShader, string texture);
-	void drawCube(vector3d& position, vector3d& size, Shader ourShader, string texture);
-	void drawCylinder(vector3d& position, vector3d& size, Shader ourShader, string texture);
-	void drawSofa(vector3d& position, vector3d& size, Shader ourShader, string texture);
-	void drawTable(vector3d& position, vector3d& size, Shader ourShader, string texture);
-	void drawCabinet(vector3d& position, vector3d& size, Shader ourShader, string texture);
-	void drawChair(vector3d& position, vector3d& size, Shader ourShader, string texture);
-	void drawToy(vector3d& position, vector3d& size, Shader ourShader, string texture);
+	map<string, unsigned int> compileTextures();
+	void drawPlane(vector3d& position, vector3d& size, Shader ourShader, Object planeObject, unsigned int texture);
+	void drawCube(vector3d& position, vector3d& size, Shader ourShader, Object cubeObject, unsigned int texture);
+	void drawCylinder(vector3d& position, vector3d& size, Shader ourShader, Object cylinderObject, unsigned int texture);
+	void drawSofa(vector3d& position, vector3d& size, Shader ourShader, Object sofaObject, unsigned int texture);
+	void drawTable(vector3d& position, vector3d& size, Shader ourShader, Object tableObject, unsigned int texture);
+	void drawCabinet(vector3d& position, vector3d& size, Shader ourShader, Object cabinetObject, unsigned int texture);
+	void drawChair(vector3d& position, vector3d& size, Shader ourShader, Object chairObject, unsigned int texture);
+	void drawToy(vector3d& position, vector3d& size, Shader ourShader, Object toyObject, unsigned int texture);
 };
 
 #endif
