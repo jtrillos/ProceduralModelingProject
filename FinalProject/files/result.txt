@@ -19,7 +19,7 @@ Position: <20, 0, 0>
 Size: <0, 20, 20>
 Texture: 
 Type: 0
-Children: [ wallpaper ]
+Children: [ wallpaper wallMiddle1 wallpaper ]
 
 Name: wall2
 Position: <0, 0, 20>
@@ -44,7 +44,21 @@ Children: [ floor f1 floor f2 floor f3 floor ]
 
 Name: wallpaper
 Position: <20, 0, 0>
-Size: <0, 20, 20>
+Size: <0, 5, 20>
+Texture: wall
+Type: 1
+Children: [ ]
+
+Name: wallMiddle1
+Position: <20, 5, 0>
+Size: <0, 10, 20>
+Texture: 
+Type: 0
+Children: [ wallpaper window wallpaper window wallpaper ]
+
+Name: wallpaper
+Position: <20, 15, 0>
+Size: <0, 5, 20>
 Texture: wall
 Type: 1
 Children: [ ]
@@ -155,6 +169,41 @@ Type: 1
 Children: [ ]
 
 Name: wallpaper
+Position: <20, 5, 0>
+Size: <0, 10, 4>
+Texture: wall
+Type: 1
+Children: [ ]
+
+Name: window
+Position: <20, 5, 4>
+Size: <0, 10, 5>
+Texture: window
+Type: 1
+Children: [ ]
+
+Name: wallpaper
+Position: <20, 5, 9>
+Size: <0, 10, 2>
+Texture: wall
+Type: 1
+Children: [ ]
+
+Name: window
+Position: <20, 5, 11>
+Size: <0, 10, 5>
+Texture: window
+Type: 1
+Children: [ ]
+
+Name: wallpaper
+Position: <20, 5, 16>
+Size: <0, 10, 4>
+Texture: wall
+Type: 1
+Children: [ ]
+
+Name: wallpaper
 Position: <6, 0, 20>
 Size: <8, 9, 0>
 Texture: wall
@@ -199,7 +248,7 @@ Children: [ ]
 Name: picture
 Position: <0, 6, 12>
 Size: <0, 5, 4>
-Texture: picture
+Texture: awesomeface
 Type: 1
 Children: [ ]
 
@@ -281,10 +330,10 @@ Type: 1
 Children: [ ]
 
 Name: chair1
-Position: <14, 0, 11>
-Size: <3, 6, 3>
-Texture: rug
-Type: 8
+Position: <18, 0, 11>
+Size: <-4, 3, 3>
+Texture: armchair
+Type: 7
 Children: [ ]
 
 Name: floor
